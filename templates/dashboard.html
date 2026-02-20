@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ name }}!</h2>
+
+        <h3>Add Expense</h3>
+        <form method="POST" action="/add-expense">
+            <input type="text" name="title" placeholder="Title" required>
+            <input type="number" step="0.01" name="amount" placeholder="Amount" required>
+            <input type="text" name="category" placeholder="Category" required>
+            <input type="date" name="expense_date" required>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <h3>Your Expenses</h3>
+        <ul>
+            {% for e in expenses %}
+                <li>
+                    {{ e.title }} - ₹{{ e.amount }} ({{ e.category }}) on {{ e.expense_date }}
+                    <div>
+                        <a href="/edit-expense/{{ e.id }}">Edit</a>
+                        <a href="/delete-expense/{{ e.id }}" class="delete-link" style="color:red; margin-left:10px;">
+                            Delete
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Spending by Category</h3>
+<div style="width: 280px; height: 280px; margin: 20px auto;">
+    <canvas id="expenseChart" style="width: 100%; height: 100%;"></canvas>
+</div>
+
+        <a href="/logout">Logout</a>
+    </div>
+
+    <script>
+    const expensesData = JSON.parse('{{ expenses | tojson | safe }}') || [];
+
+    if (expensesData.length > 0) {
+        const categoryTotals = {};
+
+        expensesData.forEach(e => {
+            if (categoryTotals[e.category]) {
+                categoryTotals[e.category] += parseFloat(e.amount);
+            } else {
+                categoryTotals[e.category] = parseFloat(e.amount);
+            }
+        });
+
+        const labels = Object.keys(categoryTotals);
+        const data = Object.values(categoryTotals);
+
+        const canvas = document.getElementById('expenseChart');
+        const ctx = canvas.getContext('2d');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    } else {
+        console.log("No expenses to show in chart");
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    text-align: center;
+    color: #444;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+form input, form button {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+form button {
+    grid-column: span 2;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+form button:hover {
+    background: #574bdb;
+    transform: translateY(-2px);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background: #f9f9ff;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+ul li a {
+    color: #6c63ff;
+    font-weight: 500;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+    }
+
+    form button {
+        grid-column: span 1;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    h2, h3 {
+        font-size: 18px;
+    }
+
+    .container {
+        padding: 12px;
+    }
+
+    form input, form button {
+        font-size: 16px;
+        padding: 12px;
+    }
+}
+
+/* Make chart responsive */
+canvas {
+    max-width: 100% !important;
+    height: auto !important;
+}
+.small-chart {
+    max-width: 350px;
+    max-height: 350px;
+    margin: 20px auto;
+    display: block;
+}
+.chart-box {
+    width: 280px;       /* change to 250px or 300px if you want */
+    height: 280px;
+    margin: 20px auto;  /* centers it */
+}

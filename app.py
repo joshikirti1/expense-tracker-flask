@@ -2,12 +2,12 @@ from flask import Flask, render_template, request, redirect, session
 import mysql.connector
 
 app = Flask(__name__)
-app.secret_key = "secret123"
+app.secret_key = "your_secrete key"
 
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Kirti@123",
+    password="your password",
     database="expense_tracker"
 )
 
